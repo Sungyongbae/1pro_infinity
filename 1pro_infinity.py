@@ -9,12 +9,6 @@ TOKEN = '1919980133:AAG845Pwz1i4WCJvaaamRT-_QE0uezlvA9A'
 ID = '1796318367'
 bot = telegram.Bot(TOKEN)
 
-def get_target_price(ticker, k):
-    """변동성 돌파 전략으로 매수 목표가 조회"""
-    df = pyupbit.get_ohlcv(ticker, interval="day", count=2)
-    target_price = df.iloc[0]['close'] + (df.iloc[0]['high'] - df.iloc[0]['low']) * k
-    return target_price
-
 def get_start_time(ticker):
     """시작 시간 조회"""
     df = pyupbit.get_ohlcv(ticker, interval="minute5", count=1)
@@ -51,7 +45,7 @@ def check_profit(ticker,price,total):
 
 def get_RSI(ticker, period, column='close'):
 
-    df = pyupbit.get_ohlcv(ticker, interval="minute3", count=200)
+    df = pyupbit.get_ohlcv(ticker, interval="minute5", count=200)
 
     delta = df[column].diff(1)
     delta = delta.dropna()
